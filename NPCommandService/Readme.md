@@ -56,7 +56,7 @@ C:\Windows-Service\NPCommandService> sc.exe start NPCommandService
 C:\Windows-Service\NPCommandService> sc.exe start NPCommandService VERBOSE
 ```
 
-### Call of Named Pipes service to execute **whoami.exe** with client program using default parameters from local machine (remote call is of course also possible):
+### Call of Named Pipes service to execute *whoami.exe* with client program using default parameters from local machine (remote call is of course also possible):
 ```cmd
 C:\Windows-Service\NPCommandService> NPCommandClient "whoami" "NamedPipesService" .
 ```

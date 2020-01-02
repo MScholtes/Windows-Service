@@ -62,7 +62,7 @@ C:\Windows-Service\NamedPipesService> sc.exe start NamedPipesService
 C:\Windows-Service\NamedPipesService> sc.exe start NamedPipesService VERBOSE
 ```
 
-### Call of Named Pipes service with Client using default parameters from the machine where the service is running (remote call is of course also possible):
+### Call of Named Pipes service with client program using default parameters from local machine (remote call is of course also possible):
 ```cmd
 C:\Windows-Service\NamedPipesService> NamedPipesClient.exe "NamedPipesService" . 10
 ```

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceconfig>
+	<service>
+		<!-- automatic logging of start, pause, continue and stop in application eventlog? -->
+		<autolog>false</autolog>
+		<!-- are pause and continue of service implemented? -->
+		<canpauseandcontinue>true</canpauseandcontinue>
+		<!-- stop of service enabled in service manager -->
+		<canstop>true</canstop>
+		<!-- loglevel: 0 - none, 1 - normal, 2 - verbose -->
+		<loglevel>1</loglevel>
+		<!-- logtarget: 0 - none. Or sum of: 1 - file, 2 - application log, 4 - console (only for interactive mode) -->
+		<logtarget>1</logtarget>
+		<!-- logpath: path to directory for logfiles (logtarget = 1), empty: %WINDIR%\Logs\Service -->
+		<logpath></logpath>
+		<!-- timer: pulse in milliseconds -->
+		<timer>30000</timer>
+		<!-- pulsetype: action to perform in every pulse
+				0 - do nothing
+				1 - start process every pulse
+				2 - start process only if previous instance has stopped
+				3 - start process only if previous instance is still running
+				4 - stop process every pulse if still running and do nothing
+				5 - stop process every pulse if still running and always start a new instance
+				6 - stop process every pulse if still running and only start a new instance if it was not running
+				7 - stop process every pulse if still running and only start a new instance if it was running
+				8 - start process only one time now and on service start
+				9 - start process only one time now, on service start and on service continuation
+    -->
+		<pulsetype>2</pulsetype>
+	</service>
+	<program>
+		<!-- commandline: command line for program to start -->
+		<commandline>cmd.exe</commandline>
+		<!-- parameters: parameters for program if any -->
+		<parameters>/k dir</parameters>
+		<!-- workingdirectory: working directory for program if any -->
+		<workingdirectory></workingdirectory>
+		<!-- session: session where to start process
+			service - service session (session 0)
+			console - console session
+			user:<NAMEPART> - search for session of first user whose name contains <NAMEPART> (ignore case)
+			active - first found active user session
+			disconnected - first found inactive user session
+			<NUMBER> - session id <NUMBER>
+		 -->
+		<session>active</session>
+		<!-- runas: true - run process as session user, false - run process as service account, probably LocalSystem -->
+		<runas>false</runas>
+		<!-- elevation: true - elevate process if possible, false - unelevate process if possible, none - do nothing
+			UAC has to be enabled. Processes of a non administrative user and of LocalSystem cannot be elevated -->
+		<elevation>none</elevation>
+		<!-- hide: hide process window? -->
+		<hide>false</hide>
+	</program>
+</serviceconfig>

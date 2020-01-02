@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceconfig>
+	<service>
+		<!-- automatic logging of start, pause, continue and stop in application eventlog? -->
+		<autolog>false</autolog>
+		<!-- are pause and continue of service implemented? -->
+		<canpauseandcontinue>true</canpauseandcontinue>
+		<!-- stop of service enabled in service manager -->
+		<canstop>true</canstop>
+		<!-- loglevel: 0 - none, 1 - normal, 2 - verbose -->
+		<loglevel>1</loglevel>
+		<!-- logtarget: 0 - none. Or sum of: 1 - file, 2 - application log, 4 - console (only for interactive mode) -->
+		<logtarget>1</logtarget>
+		<!-- logpath: path to directory for logfiles (logtarget = 1), empty: %WINDIR%\Logs\Service -->
+		<logpath></logpath>
+		<!-- timer: pulse in milliseconds -->
+		<timer>5000</timer>
+		<!-- pulsetype: action to perform in every pulse
+				0 - do nothing
+				1 - start action every pulse
+				8 - start action only one time now and on service start
+				9 - start action only one time now, on service start and on service continuation
+    -->
+		<pulsetype>1</pulsetype>
+	</service>
+</serviceconfig>

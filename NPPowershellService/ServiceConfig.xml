@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceconfig>
+	<service>
+		<!-- automatic logging of start, pause, continue and stop in application eventlog? -->
+		<autolog>false</autolog>
+		<!-- are pause and continue of service implemented? -->
+		<canpauseandcontinue>false</canpauseandcontinue>
+		<!-- stop of service enabled in service manager -->
+		<canstop>true</canstop>
+		<!-- loglevel: 0 - none, 1 - normal, 2 - verbose -->
+		<loglevel>1</loglevel>
+		<!-- logtarget: 0 - none. Or sum of: 1 - file, 2 - application log, 4 - console (only for interactive mode) -->
+		<logtarget>1</logtarget>
+		<!-- logpath: path to directory for logfiles (logtarget = 1), empty: %WINDIR%\Logs\Service -->
+		<logpath></logpath>
+		<!-- namedpipe: name of Named Pipe, empty: NamedPipesService -->
+		<namedpipe>NamedPipesService</namedpipe>
+		<!-- instancecount: count of server threads (default: 10) -->
+		<instancecount>10</instancecount>
+		<!-- width: line length, default: 0 (means no line width) -->
+		<width></width>
+	</service>
+</serviceconfig>

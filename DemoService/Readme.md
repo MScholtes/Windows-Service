@@ -65,7 +65,7 @@ C:\Windows-Service\DemoService> Uninstall
 ```
 
 ## Configuration
-Edit XML configuration file **C:\Program Files\\<SERVICENAME\>\ServiceConfig.xml** to meet your needs.
+Edit XML configuration file **C:\Program Files\DemoService\ServiceConfig.xml** to meet your needs.
 
 Most of the configuration items are read on next service action / timer tick, some items like *autolog*, *canpauseandcontinue* or *canstop* at next service start.
 

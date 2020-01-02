@@ -12,7 +12,7 @@ Sample implementations of a Windows Service in C#
 * Logging to file and/or event log.
 * Interactive execution for testing purposes.
 
-## List of Services
+## List of services
 
 * **DemoService** - Service template with a timer that only writes to a log.
 * **TimerService** - Service that starts programs defined in configuration xml timer based including runas and elevation capabilities.
@@ -26,7 +26,7 @@ to be continued...
 
 ## Drawbacks
 
-* Scripts supply only services that run as local system (can be changed manually after service installation).
+* Scripts supply only services that run in context of local system (can be changed manually after service installation).
 * Logging to file (logtarget = 1) is not thread safe (might be important for short timer intervals).
 * Access errors on service configuration xml file stop the service (this can be changed if ExitCode is not set in ReadBaseConfiguration() and ReadConfiguration()).
 
@@ -53,6 +53,11 @@ C:\Windows-Service\DemoService> notepad "C:\Program Files\DemoService\ServiceCon
 ### Manual service start (can be done in Windows Services console too), services start automatic on system start per default:
 ```cmd
 C:\Windows-Service\DemoService> sc.exe start DemoService
+```
+
+### One-time service start in verbose mode (can be done in Windows Services console too):
+```cmd
+C:\Windows-Service\DemoService> sc.exe start DemoService VERBOSE
 ```
 
 ### Manual service stop (can be done in Windows Services console too):

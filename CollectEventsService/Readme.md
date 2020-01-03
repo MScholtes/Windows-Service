@@ -1,9 +1,9 @@
 # CollectEventsService
-C# event collecting service.
+Event log event collecting service.
 
-The service reads events of all (!) event logs and writes them to *%WINDIR%\Logs\CollectEventsYYYYMMDD.txt* every 5 minutes if nothing else is specified in **ServiceConfig.xml**.  
+The service reads events of all (!) event logs (Windows 10 has over 1000 event logs) and writes them to *%WINDIR%\Logs\CollectEventsYYYYMMDD.txt* every 5 minutes if nothing else is specified in **ServiceConfig.xml**.  
 
-Aggregating the event logs of one or more remote computers is possible (can be configured in *computers* entry in configuration xml), but the service account has to have the appropriate access rights.
+Aggregating the event logs of one or more remote computers is possible (can be configured in *computers* entry in configuration xml), but the service account must have the required privileges.
 
 **Markus Scholtes, 2020**
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceconfig>
+	<service>
+		<!-- automatic logging of start, pause, continue and stop in application eventlog? -->
+		<autolog>false</autolog>
+		<!-- are pause and continue of service implemented? -->
+		<canpauseandcontinue>true</canpauseandcontinue>
+		<!-- stop of service enabled in service manager -->
+		<canstop>true</canstop>
+		<!-- loglevel: 0 - none, 1 - normal, 2 - verbose -->
+		<loglevel>1</loglevel>
+		<!-- logtarget: 0 - none. Or sum of: 1 - file, 2 - application log, 4 - console (only for interactive mode) -->
+		<logtarget>1</logtarget>
+		<!-- logpath: path to directory for logfiles (logtarget = 1), empty: %WINDIR%\Logs\Service -->
+		<logpath></logpath>
+		<!-- timer: pulse in milliseconds -->
+		<timer>300000</timer>
+	</service>
+	<event>
+		<!-- filename: path and name to target file, empty: %WINDIR%\Logs\CollectedEvents.txt or %WINDIR%\Logs\CollectedEvents.csv (depending on format) -->
+		<filename></filename>
+		<!-- computers: which computers to query, empty for localhost or comma separated list of computer names. Specify localhost for local machine 
+		     service account must have access right to event log on remote machine -->
+		<computers></computers>
+		<!-- eventlogs: which event logs to query, empty for all event logs or comma separated list of log names -->
+		<eventlogs></eventlogs>
+		<!-- eventlevel: all (default) - 0, up to critical - 1, up to error - 2, up to warning- 3, up to informational - 4, up to verbose - 5 -->
+		<eventlevel>0</eventlevel>
+		<!-- format: format of file, txt (default) or csv -->
+		<format>txt</format>
+		<!-- filerotation: when to create a new file: none - never (default), hourly - every hour, daily - every day, monthly - every month, (size in integer) - when (size in integer) in KB is reached -->
+		<filerotation>daily</filerotation>
+		<!-- filecount: maximal number of log files to keep or 0 for don't check (default) -->
+		<filecount>31</filecount>
+	</event>
+</serviceconfig>

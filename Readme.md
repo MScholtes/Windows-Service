@@ -21,6 +21,7 @@ Sample implementations of a Windows Service in C#
 * **NPCommandService** - Named Pipes service including client program that executes command lines sent by client in service context.
 * **NPPowershellService** - Named Pipes service including client program that executes powershell commands sent by client in service context.
 * **CollectEventsService** - Service that collects ALL events of ALL event logs (there are over 1000 event logs in Windows 10) and summarizes them in one text or csv file. Can access remote computers if the service account has the adequate access rights.
+* **DemoSessionService** - Demo service that writes a log entry for every session event like logon/logoff/connect/disconnect/lock/unlock to a file or event log.
 
 to be continued...
 
@@ -107,6 +108,9 @@ Most of the configuration items are read on next service action / timer tick, so
 ```
 
 ## History
+
+### 1.0.1 / 2020-01-06
+DemoSessionService added
 
 ### 1.0.0 / 2020-01-02
 Initial release

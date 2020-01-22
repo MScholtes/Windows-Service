@@ -188,9 +188,15 @@ namespace NaSpCollectEventsService
 					EventLogSession session;
 					// connect to computer ("localhost" for local computer). On local computer prevent network access
 					if ((computer.ToUpper() == Environment.MachineName) || (computer.ToLower() == "localhost"))
+					{ 
+						WriteVerboseToLog("Starting a session with localhost");
 						session = new EventLogSession();
+					}
 					else
+					{ 
+						WriteVerboseToLog("Starting a session with computer " + computer);
 						session = new EventLogSession(computer);
+					}
 
 					List<string> logNames = null;
 					// query all or as comma separated list in eventlogs given logs
@@ -374,8 +380,8 @@ namespace NaSpCollectEventsService
 						if (successful) WriteVerboseToLog("Successfully processed " + eventList.Count + " events from " + logCount + " logs, access errors with " + (int)(logNames.Count - logCount) + " logs.");
 					}
 
-					lastcheck = newcheck;
 				}
+				lastcheck = newcheck;
 			}
 
 			// on error set ExitCode here to stop service and generate error message in system log
@@ -918,12 +924,12 @@ namespace NaSpCollectEventsService
 					}
 				}
 
-				WriteVerboseToLog("Processed event log \"" + logName + "\": " + count + " entries");
+				WriteVerboseToLog("Processed event log \"" + logName + "\" from computer " + computerName + ": " + count + " entries");
 				return true;
 			}
 			catch (Exception e)
 			{
-				WriteToLog("Error opening the event log \"" + logName + "\": " + e.Message);
+				WriteToLog("Error opening the event log \"" + logName + "\" from computer " + computerName + ": " + e.Message);
 				return false;
 			}
 		}

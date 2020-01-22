@@ -106,5 +106,8 @@ Most of the configuration items are read on next service action / timer tick, so
 
 ## History
 
+### 1.0.1 / 2020-01-22
+Fixed error setting time interval to 0 for second computer
+
 ### 1.0.0 / 2020-01-02
 Initial release

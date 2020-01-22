@@ -109,6 +109,9 @@ Most of the configuration items are read on next service action / timer tick, so
 
 ## History
 
+### 1.0.2 / 2020-01-22
+Fix for CollectEventsService (error setting time interval to 0 for second computer)
+
 ### 1.0.1 / 2020-01-06
 DemoSessionService added
 

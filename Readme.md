@@ -22,6 +22,7 @@ Sample implementations of a Windows Service in C#
 * **NPPowershellService** - Named Pipes service including client program that executes powershell commands sent by client in service context.
 * **CollectEventsService** - Service that collects ALL events of ALL event logs (there are over 1000 event logs in Windows 10) and summarizes them in one text or csv file. Can access remote computers if the service account has the adequate access rights.
 * **DemoSessionService** - Demo service that writes a log entry for every session event like logon / logoff / connect / disconnect / lock / unlock to a file or event log.
+* **ElevatedStartupService** - service starts every program or link elevated in folder C:\Users\<USERNAME>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\StartupElevated when a user logs on and folder exists.
 
 to be continued...
 
@@ -108,6 +109,9 @@ Most of the configuration items are read on next service action / timer tick, so
 ```
 
 ## History
+
+### 1.0.3 / 2020-02-10
+ElevatedStartupService added
 
 ### 1.0.2 / 2020-01-22
 Fix for CollectEventsService (fix for error setting time interval to 0 for second computer)

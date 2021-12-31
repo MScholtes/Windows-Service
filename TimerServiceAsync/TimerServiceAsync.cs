@@ -1,7 +1,7 @@
 // C# timer service
 // starts a program or script every 30 seconds
 // service can be configured via ServiceConfig.xml in the directory of the binary
-// Markus Scholtes, 2020/01/02
+// Markus Scholtes, 2021/12/31
 
 using System;
 using System.Diagnostics;
@@ -15,15 +15,15 @@ using System.Xml;
 // set executable properties
 using System.Reflection;
 [assembly:AssemblyTitle("TimerServiceAsync")]
-[assembly:AssemblyDescription("TimerService that starts a process entry every 5 seconds")]
+[assembly:AssemblyDescription("TimerService that starts a process every 30 seconds")]
 [assembly:AssemblyConfiguration("")]
 [assembly:AssemblyCompany("MS")]
 [assembly:AssemblyProduct("TimerServiceAsync")]
-[assembly:AssemblyCopyright("© Markus Scholtes 2020")]
+[assembly:AssemblyCopyright("© Markus Scholtes 2021")]
 [assembly:AssemblyTrademark("")]
 [assembly:AssemblyCulture("")]
-[assembly:AssemblyVersion("1.0.0.0")]
-[assembly:AssemblyFileVersion("1.0.0.0")]
+[assembly:AssemblyVersion("1.0.4.0")]
+[assembly:AssemblyFileVersion("1.0.4.0")]
 
 namespace NaSpTimerServiceAsync
 {
@@ -188,7 +188,10 @@ namespace NaSpTimerServiceAsync
 				if (process != null)
 				{
 					if (process.HasExited)
+					{
 						process.Close();
+						process = null;
+					}
 					else
 						processalive = true;
 				}
@@ -216,7 +219,11 @@ namespace NaSpTimerServiceAsync
 				if (((pulsetype & 11) == 1) || (((pulsetype & 11) == 2) && !processalive) || (((pulsetype & 11) == 3) && processalive) || ((pulsetype >= 8) && !oncerun))
 				{ // call action
 					WriteToLog("Starting " + processtostart + " with the parameters " + parameters);
-					if (process != null) process.Close();
+					if (process != null)
+					{
+						process.Close();
+						process = null;
+					}
 					StartProcessInSession(session, processtostart, parameters, workingdirectory, runas, hide);
 
 					if (pulsetype >= 8) oncerun = true; // notice action call for "one time modes"

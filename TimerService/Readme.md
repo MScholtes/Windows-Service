@@ -1,7 +1,7 @@
 # TimerService
 Service that starts a program defined in configuration xml timer based including runas and elevation capabilities.
 
-**Markus Scholtes, 2020**
+**Markus Scholtes, 2021**
 
 ***
 
@@ -124,6 +124,9 @@ Most of the configuration items are read on next service action / timer tick, so
 ```
 
 ## History
+
+### 1.0.4 / 2021-12-31
+Fix for Timerservice and TimerServiceAsync (variable process might be undefined)
 
 ### 1.0.0 / 2020-01-02
 Initial release

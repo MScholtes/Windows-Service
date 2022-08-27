@@ -1,7 +1,7 @@
 // C# event collecting service
 // reads events of all (!) event logs and write them to one file
 // service can be configured via ServiceConfig.xml in the directory of the binary
-// Markus Scholtes, 2020/01/02
+// Markus Scholtes, 2022/08/27
 
 using System;
 using System.Collections.Generic;
@@ -21,11 +21,11 @@ using System.Reflection;
 [assembly:AssemblyConfiguration("")]
 [assembly:AssemblyCompany("MS")]
 [assembly:AssemblyProduct("CollectEventsService")]
-[assembly:AssemblyCopyright("© Markus Scholtes 2020")]
+[assembly:AssemblyCopyright("© Markus Scholtes 2022")]
 [assembly:AssemblyTrademark("")]
 [assembly:AssemblyCulture("")]
-[assembly:AssemblyVersion("1.0.0.0")]
-[assembly:AssemblyFileVersion("1.0.0.0")]
+[assembly:AssemblyVersion("1.0.2.0")]
+[assembly:AssemblyFileVersion("1.0.2.0")]
 
 namespace NaSpCollectEventsService
 {
@@ -76,7 +76,9 @@ namespace NaSpCollectEventsService
 		string computers = ""; // which computers to query, empty for localhost or comma separated list of computer names. localhost for local machine
 													// service account must have access right to event log on remote machine
 		string eventlogs = ""; // eventlogs: which event logs to query, empty for all event logs or comma separated list of log names
+		bool bSecurity = false; // process Security log?
 		int eventlevel = 0; // event information level: all (default) - 0, up to critical - 1, up to error - 2, up to warning- 3, up to informational - 4, up to verbose - 5
+		bool bLogAlways = false; // process information level 0?
 		bool CSV = false; // format of output file, txt (default) or csv
 		int rotationtype = 0; // rotation of output file: 0 - never (default), 1 - when rotationsize is reached, 2 - every hour, 3 - every day, 4 - every month
 		int rotationsize = 0; // size when file is to rotate in KB
@@ -203,11 +205,13 @@ namespace NaSpCollectEventsService
 					if (eventlogs != "")
 					{ // yes, only read those logs
 						logNames = new List<string>(eventlogs.Split(new char[] {',',';'}).Where(val => val.Trim() != "").Select(val => val.Trim()).ToArray());
+						if (bSecurity) if (!logNames.Exists(x => x.ToLower() == "security")) logNames.Add("security");
 					}
 					else
 					{ // no entries for logs, read all logs
 						try { // retrieve all log names
 							logNames = new List<string>(session.GetLogNames());
+							if (!bSecurity) logNames.Remove("Security");
 						}
 						catch (Exception ex)
 						{ // cannot retrieve log names
@@ -666,6 +670,9 @@ namespace NaSpCollectEventsService
 					WriteToLog("Event logs list set to " + eventlogs + ".");
 				}
 
+				// security: query Security log?
+				if (ReadXmlText(xmlDocument, "/serviceconfig/event/security", "false").ToLower() == "true") bSecurity = true;
+
 				// eventlevel: all (default) - 0, up to critical - 1, up to error - 2, up to warning- 3, up to informational - 4, up to verbose - 5
 				tempStr = ReadXmlText(xmlDocument, "/serviceconfig/event/eventlevel", "0");
 				if (Int32.TryParse(tempStr, out tempInt))
@@ -683,6 +690,9 @@ namespace NaSpCollectEventsService
 				}
 				else
 					WriteToLog("Error when setting the information level.");
+
+				// logalways: query events of level LogAlways (level 0)?
+				if (ReadXmlText(xmlDocument, "/serviceconfig/event/logalways", "false").ToLower() == "true") bLogAlways = true;
 
 				// format of output file, txt (default) or csv
 				if (ReadXmlText(xmlDocument, "/serviceconfig/event/format", "txt").ToLower() == "csv")
@@ -845,12 +855,20 @@ namespace NaSpCollectEventsService
 		{
 			string eventQuery;
 			if (eventlevel == 0)
-				// query for all information levels
-				eventQuery = string.Format("*[System/TimeCreated/@SystemTime > '{0}'] and *[System/TimeCreated/@SystemTime <= '{1}']", startTime.ToUniversalTime().ToString("o"), endTime.ToUniversalTime().ToString("o"));
+			{	// query for all information levels
+				if (bLogAlways)
+				{ eventQuery = string.Format("*[System/TimeCreated/@SystemTime > '{0}'] and *[System/TimeCreated/@SystemTime <= '{1}']", startTime.ToUniversalTime().ToString("o"), endTime.ToUniversalTime().ToString("o")); }
+				else
+				{ eventQuery = string.Format("*[System/TimeCreated/@SystemTime > '{0}'] and *[System/TimeCreated/@SystemTime <= '{1}'] and *[System/Level > 0]", startTime.ToUniversalTime().ToString("o"), endTime.ToUniversalTime().ToString("o")); }
+			}
 			else
-				// level: LogAlways - 0, Critical - 1, Error - 2, Warning - 3, Informational - 4, Verbose - 5
+			{ // level: LogAlways - 0, Critical - 1, Error - 2, Warning - 3, Informational - 4, Verbose - 5
 				// there are different levels for auditing logs!
-				eventQuery = string.Format("*[System/TimeCreated/@SystemTime > '{0}'] and *[System/TimeCreated/@SystemTime <= '{1}'] and *[System/Level <= {2}]", startTime.ToUniversalTime().ToString("o"), endTime.ToUniversalTime().ToString("o"), eventlevel.ToString());
+				if (bLogAlways)
+				{ eventQuery = string.Format("*[System/TimeCreated/@SystemTime > '{0}'] and *[System/TimeCreated/@SystemTime <= '{1}'] and *[System/Level <= {2}]", startTime.ToUniversalTime().ToString("o"), endTime.ToUniversalTime().ToString("o"), eventlevel.ToString()); }
+				else
+				{ eventQuery = string.Format("*[System/TimeCreated/@SystemTime > '{0}'] and *[System/TimeCreated/@SystemTime <= '{1}'] and *[System/Level <= {2}] and *[System/Level > 0]", startTime.ToUniversalTime().ToString("o"), endTime.ToUniversalTime().ToString("o"), eventlevel.ToString()); }
+			}
 
 			// define event log query
 			EventLogQuery eventLogQuery = new EventLogQuery(logName, PathType.LogName, eventQuery);

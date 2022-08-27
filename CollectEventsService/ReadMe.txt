@@ -1,6 +1,6 @@
 C# event collecting service
 
-by Markus Scholtes, 2020
+by Markus Scholtes, 2020-2022
 
 
 Compile.bat compiles the service

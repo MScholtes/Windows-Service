@@ -24,8 +24,12 @@
 		<computers></computers>
 		<!-- eventlogs: which event logs to query, empty for all event logs or comma separated list of log names -->
 		<eventlogs></eventlogs>
+		<!-- security: query Security log -->
+		<security>false</security>
 		<!-- eventlevel: all (default) - 0, up to critical - 1, up to error - 2, up to warning- 3, up to informational - 4, up to verbose - 5 -->
 		<eventlevel>0</eventlevel>
+		<!-- logalways: query events of level LogAlways (level 0)-->
+		<logalways>false</logalways>
 		<!-- format: format of file, txt (default) or csv -->
 		<format>txt</format>
 		<!-- filerotation: when to create a new file: none - never (default), hourly - every hour, daily - every day, monthly - every month, (size in integer) - when (size in integer) in KB is reached -->

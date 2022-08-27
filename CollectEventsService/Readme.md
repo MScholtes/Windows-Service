@@ -3,9 +3,9 @@ Event log event collecting service.
 
 The service reads events of all (!) event logs (Windows 10 has over 1000 event logs) and writes them to *%WINDIR%\Logs\CollectEventsYYYYMMDD.txt* every 5 minutes if nothing else is specified in **ServiceConfig.xml**.  
 
-Aggregating the event logs of one or more remote computers is possible (can be configured in *computers* entry in configuration xml), but the service account must have the required privileges.
+Security log and events of level LogAlways are omitted per default. Aggregating the event logs of one or more remote computers is possible (can be configured in *computers* entry in configuration xml), but the service account must have the required privileges.
 
-**Markus Scholtes, 2020**
+**Markus Scholtes, 2022**
 
 ***
 
@@ -92,8 +92,12 @@ Most of the configuration items are read on next service action / timer tick, so
 		<computers></computers>
 		<!-- eventlogs: which event logs to query, empty for all event logs or comma separated list of log names -->
 		<eventlogs></eventlogs>
+		<!-- security: query Security log -->
+		<security>false</security>
 		<!-- eventlevel: all (default) - 0, up to critical - 1, up to error - 2, up to warning- 3, up to informational - 4, up to verbose - 5 -->
 		<eventlevel>0</eventlevel>
+		<!-- logalways: query events of level LogAlways (level 0)-->
+		<logalways>false</logalways>
 		<!-- format: format of file, txt (default) or csv -->
 		<format>txt</format>
 		<!-- filerotation: when to create a new file: none - never (default), hourly - every hour, daily - every day, monthly - every month, (size in integer) - when (size in integer) in KB is reached -->
@@ -105,6 +109,9 @@ Most of the configuration items are read on next service action / timer tick, so
 ```
 
 ## History
+
+### 1.0.2 / 2022-08-27
+Omit Security log and events of log level LogAlways per default for overview reasons
 
 ### 1.0.1 / 2020-01-22
 Fixed error setting time interval to 0 for second computer

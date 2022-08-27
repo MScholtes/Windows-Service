@@ -1,7 +1,7 @@
 # Windows-Service
 Sample implementations of a Windows Service in C#
 
-**Markus Scholtes, 2021**
+**Markus Scholtes, 2022**
 
 ***
 
@@ -109,6 +109,9 @@ Most of the configuration items are read on next service action / timer tick, so
 ```
 
 ## History
+
+### 1.0.5 / 2022-08-27
+Fix for CollectEventsService (omit Security log and events of log level LogAlways per default for overview reasons)
 
 ### 1.0.4 / 2021-12-31
 Fix for Timerservice and TimerServiceAsync (variable process might be undefined)

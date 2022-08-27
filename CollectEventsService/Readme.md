@@ -110,10 +110,10 @@ Most of the configuration items are read on next service action / timer tick, so
 
 ## History
 
-### 1.0.2 / 2022-08-27
+### 1.0.5 / 2022-08-27
 Omit Security log and events of log level LogAlways per default for overview reasons
 
-### 1.0.1 / 2020-01-22
+### 1.0.2 / 2020-01-22
 Fixed error setting time interval to 0 for second computer
 
 ### 1.0.0 / 2020-01-02

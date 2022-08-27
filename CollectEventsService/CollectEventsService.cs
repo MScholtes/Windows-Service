@@ -24,8 +24,8 @@ using System.Reflection;
 [assembly:AssemblyCopyright("© Markus Scholtes 2022")]
 [assembly:AssemblyTrademark("")]
 [assembly:AssemblyCulture("")]
-[assembly:AssemblyVersion("1.0.2.0")]
-[assembly:AssemblyFileVersion("1.0.2.0")]
+[assembly:AssemblyVersion("1.0.0.1")]
+[assembly:AssemblyFileVersion("1.0.0.1")]
 
 namespace NaSpCollectEventsService
 {

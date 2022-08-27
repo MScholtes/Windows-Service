@@ -19,7 +19,7 @@
 	<event>
 		<!-- filename: path and name to target file, empty: %WINDIR%\Logs\CollectedEvents.txt or %WINDIR%\Logs\CollectedEvents.csv (depending on format) -->
 		<filename></filename>
-		<!-- computers: which computers to query, empty for localhost or comma separated list of computer names. Specify localhost for local machine 
+		<!-- computers: which computers to query, empty for localhost or comma separated list of computer names. Specify localhost for local machine
 		     service account must have access right to event log on remote machine -->
 		<computers></computers>
 		<!-- eventlogs: which event logs to query, empty for all event logs or comma separated list of log names -->
